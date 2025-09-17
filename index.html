@@ -6,55 +6,94 @@
 <title>Topology Computer Training Center</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#fff5f5;color:#333;}
-::-webkit-scrollbar{width:10px;}::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px;}::-webkit-scrollbar-thumb{background:linear-gradient(45deg,#ff4d4d,#ff9999);border-radius:10px;}::-webkit-scrollbar-thumb:hover{background:linear-gradient(45deg,#ff1a1a,#ff6666);}
+body{background:#f0f4f8;color:#333;overflow-x:hidden;}
+::-webkit-scrollbar{width:10px;}::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px;}::-webkit-scrollbar-thumb{background:linear-gradient(45deg,#4da6ff,#80c1ff);border-radius:10px;}::-webkit-scrollbar-thumb:hover{background:linear-gradient(45deg,#1a8cff,#3399ff);}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes slideDown{from{opacity:0; transform:translateY(-30px);}to{opacity:1; transform:translateY(0);}}
+@keyframes slideUp{from{opacity:0; transform:translateY(30px);}to{opacity:1; transform:translateY(0);}}
+@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+
+/* Welcome Screen */
+#welcomeScreen{
+  display:flex;justify-content:space-between;align-items:center;height:100vh;padding:50px;background:linear-gradient(135deg,#4da6ff,#80c1ff);color:#fff;animation:fadeIn 1s ease;
+}
+#welcomeScreen .courses{flex:1;display:flex;flex-direction:column;gap:15px;}
+#welcomeScreen .courses .course-card{padding:12px 20px;border-radius:12px;background:rgba(255,255,255,0.2);animation:float 3s ease-in-out infinite alternate;cursor:pointer;transition:0.3s;}
+#welcomeScreen .courses .course-card:hover{background:rgba(255,255,255,0.35);transform:scale(1.05);}
+#welcomeScreen .topology-info{flex:1;text-align:right;}
+#welcomeScreen .topology-info h1{font-size:2rem;margin-bottom:10px;}
+#welcomeScreen .topology-info p{font-size:1.2rem;margin-bottom:10px;}
+#welcomeScreen .topology-info span{font-weight:bold;}
+#welcomeScreen button{padding:12px 25px;font-size:1rem;border:none;border-radius:10px;background:#fff;color:#4da6ff;cursor:pointer;font-weight:bold;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:0.3s;}
+#welcomeScreen button:hover{background:#fff;color:#1a8cff; transform:scale(1.05);}
+
+/* Login Screen */
+#loginScreen{display:none;flex-direction:column;justify-content:center;align-items:center;height:100vh;animation:fadeIn 0.5s;}
+#loginScreen input{width:250px;padding:10px;margin:10px 0;border-radius:8px;border:none;}
+#loginScreen button{padding:10px 20px;border:none;border-radius:8px;background:#4da6ff;color:#fff;cursor:pointer;font-weight:bold;}
+#loginScreen button:hover{background:#1a8cff;}
+
+/* Main Container */
 .container{max-width:1200px;margin:20px auto;padding:20px;}
 nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:20px;}
-nav .logo{font-size:1.5rem;font-weight:bold;color:#ff4d4d;cursor:pointer;}
+nav .logo{font-size:1.5rem;font-weight:bold;color:#4da6ff;cursor:pointer;}
 nav ul{display:flex;list-style:none;flex-wrap:wrap;}
-nav ul li{margin-left:20px;cursor:pointer;font-weight:bold;color:#ff4d4d;}
+nav ul li{margin-left:20px;cursor:pointer;font-weight:bold;color:#4da6ff;}
 nav ul li:hover{text-decoration:underline;}
 section{display:none;}
 section.active{display:block;animation:fadeIn 0.5s ease;}
-#loginScreen{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;}
-#loginScreen input{width:250px;padding:10px;margin:10px 0;border-radius:8px;border:none;}
-#loginScreen button{padding:10px 20px;border:none;border-radius:8px;background:#ff4d4d;color:#fff;cursor:pointer;font-weight:bold;}
-#loginScreen button:hover{background:#ff1a1a;}
-#welcome{text-align:center;padding:50px;background:linear-gradient(135deg,#ff4d4d,#ff9999);color:#fff;border-radius:15px;margin-bottom:20px;}
 .cards{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:20px;}
-.card{flex:1 1 200px;padding:20px;border-radius:15px;background:linear-gradient(135deg,#ff4d4d,#ff9999);color:#fff;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+.card{flex:1 1 200px;padding:20px;border-radius:15px;background:linear-gradient(135deg,#4da6ff,#80c1ff);color:#fff;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
 .card h3{margin-bottom:10px;}
-.chart-container{margin-top:20px;}
 table{width:100%;border-collapse:collapse;margin-top:10px;}
 table th,table td{padding:10px;border:1px solid #ddd;text-align:left;}
-table th{background:#ff4d4d;color:#fff;}
-button{padding:5px 10px;border:none;border-radius:6px;background:#ff4d4d;color:#fff;cursor:pointer;margin-right:5px;}
-button:hover{background:#ff1a1a;}
+table th{background:#4da6ff;color:#fff;}
+button{padding:5px 10px;border:none;border-radius:6px;background:#4da6ff;color:#fff;cursor:pointer;margin-right:5px;}
+button:hover{background:#1a8cff;}
 button:disabled{background:#ccc;cursor:not-allowed;}
-#notifications{position:relative;margin-bottom:20px;}
-.notification-item{background:#ffe6e6;padding:10px;margin-bottom:5px;border-radius:8px;color:#ff4d4d;}
 input.addInput{width:90%;padding:5px;margin-bottom:5px;border-radius:6px;border:1px solid #ccc;}
+.present{background-color:#c6f6d5;}
+.absent{background-color:#fed7d7;}
 @media(max-width:768px){.cards{flex-direction:column;} nav ul{flex-direction:column;gap:10px;margin-top:10px;}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* Footer */
+footer{margin-top:20px;text-align:center;color:#666;font-size:0.9rem;}
 </style>
 </head>
 <body>
 
-<div id="loginScreen">
+<!-- Welcome Screen -->
+<div id="welcomeScreen">
+  <div class="courses">
+    <h2>Courses We Offer</h2>
+    <div class="course-card">Basic Computer</div>
+    <div class="course-card">Intermediate</div>
+    <div class="course-card">Advanced Web Design & Database Tools</div>
+    <div class="course-card">Document Tools</div>
+    <div class="course-card">Presentation Tools</div>
+    <div class="course-card">Analysing Tools</div>
+  </div>
+  <div class="topology-info">
+    <h1>Topology Computer Training Center</h1>
+    <p>Excellence in learning, innovation & skill development.</p>
+    <p><span>Produced by:</span> DR Abdirizak Idiris Yahye</p>
+    <button onclick="showLogin()">Next</button>
+  </div>
+</div>
 
-  <h1>Welcome to Topology Computer Training Center</h1>
+<!-- Login Screen -->
+<div id="loginScreen">
+  <h1>Login</h1>
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
   <button onclick="login()">Login</button>
   <p id="loginError" style="color:red;"></p>
 </div>
 
+<!-- Main Container -->
 <div class="container" style="display:none;">
-  <div id="welcome">
-    <h2>Welcome!</h2>
-    <p>You are now logged in. Topology Computer Training Center is committed to excellence!</p>
-  </div>
-
   <nav>
     <div class="logo" onclick="showSection('dashboard')">Topology</div>
     <ul>
@@ -64,88 +103,83 @@ input.addInput{width:90%;padding:5px;margin-bottom:5px;border-radius:6px;border:
       <li onclick="showSection('payments')">Payments</li>
       <li onclick="showSection('reports')">Reports</li>
       <li onclick="showSection('users')">Users</li>
+      <li onclick="logout()">Logout</li>
     </ul>
   </nav>
 
   <div id="notifications"></div>
 
+  <!-- Dashboard -->
   <section id="dashboard" class="active">
     <h2>Dashboard</h2>
     <div class="cards">
       <div class="card"><h3>Total Students</h3><p id="totalStudents">0</p></div>
       <div class="card"><h3>Total Teachers</h3><p id="totalTeachers">0</p></div>
-      <div class="card"><h3>Payments This Month</h3><p id="totalPayments">$0</p></div>
+      <div class="card"><h3>Payments This Month</h3><p id="totalPayments">0 ETB</p></div>
     </div>
-    <div class="chart-container"><canvas id="paymentChart" height="150"></canvas></div>
+    <canvas id="paymentChart" height="150"></canvas>
   </section>
 
+  <!-- Profiles -->
   <section id="profiles">
     <h2>Student Profiles</h2>
     <div style="margin-bottom:10px;"><button id="addStudentBtn" onclick="showAddStudentForm()" style="display:none;">Add Student</button></div>
     <div id="addStudentForm" style="display:none;margin-bottom:10px;border:1px solid #ccc;padding:10px;border-radius:8px;">
       <input type="text" id="newName" class="addInput" placeholder="Name">
       <input type="email" id="newEmail" class="addInput" placeholder="Email">
-      <input type="number" id="newPaid" class="addInput" placeholder="Paid">
+      <input type="number" id="newPayment" class="addInput" placeholder="Paid Amount ETB">
       <input type="text" id="newMonth" class="addInput" placeholder="Month">
-      <button onclick="addStudent()">Save</button>
+      <button onclick="addStudent()">Add</button>
       <button onclick="hideAddStudentForm()">Cancel</button>
     </div>
     <table id="studentsTable">
-      <tr><th>Name</th><th>Email</th><th>Paid</th><th>Month</th><th>Actions</th></tr>
+      <thead><tr><th>Name</th><th>Email</th><th>Paid (ETB)</th><th>Month</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
     </table>
   </section>
 
-  <section id="payments">
-    <h2>Payments</h2>
-    <div style="margin-bottom:10px;"><button id="addPaymentBtn" onclick="showAddPaymentForm()" style="display:none;">Add Payment</button></div>
-    <div id="addPaymentForm" style="display:none;margin-bottom:10px;border:1px solid #ccc;padding:10px;border-radius:8px;">
-      <select id="paymentStudent" class="addInput"></select>
-      <input type="number" id="paymentAmount" class="addInput" placeholder="Amount">
-      <input type="text" id="paymentMonth" class="addInput" placeholder="Month">
-      <button onclick="addPayment()">Save</button>
-      <button onclick="hideAddPaymentForm()">Cancel</button>
-    </div>
-    <table id="paymentsTable">
-      <tr><th>Student</th><th>Amount</th><th>Month</th></tr>
-    </table>
-  </section>
-
-  <section id="users">
-    <h2>Users</h2>
-    <div style="margin-bottom:10px;"><button id="addUserBtn" onclick="showAddUserForm()" style="display:none;">Add User</button></div>
-    <div id="addUserForm" style="display:none;margin-bottom:10px;border:1px solid #ccc;padding:10px;border-radius:8px;">
-      <input type="text" id="userName" class="addInput" placeholder="Name">
-      <input type="email" id="userEmail" class="addInput" placeholder="Email">
-      <input type="password" id="userPassword" class="addInput" placeholder="Password">
-      <select id="userRole" class="addInput">
-        <option value="teacher">Teacher</option>
-        <option value="student">Student</option>
-      </select>
-      <button onclick="addUser()">Save</button>
-      <button onclick="hideAddUserForm()">Cancel</button>
-    </div>
-    <table id="usersTable">
-      <tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr>
-    </table>
-  </section>
-
+  <!-- Attendance -->
   <section id="attendance">
     <h2>Attendance</h2>
-    <table>
-      <tr><th>Name</th><th>Status</th><th>Date</th></tr>
-      <tr><td>Abdirizak</td><td>Present</td><td>17-Sep-2025</td></tr>
-      <tr><td>Student B</td><td>Absent</td><td>17-Sep-2025</td></tr>
+    <div style="margin-bottom:10px;"><button onclick="addAttendance()" id="attendanceBtn" style="display:none;">Add Attendance</button></div>
+    <table id="attendanceTable">
+      <thead><tr><th>Student</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
     </table>
   </section>
 
+  <!-- Payments -->
+  <section id="payments">
+    <h2>Payments</h2>
+    <table id="paymentsTable">
+      <thead><tr><th>Student</th><th>Amount (ETB)</th><th>Month</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Users -->
+  <section id="users">
+    <h2>Users</h2>
+    <table id="usersTable">
+      <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Reports -->
   <section id="reports">
     <h2>Reports</h2>
-    <button onclick="window.print()">Print Reports</button>
+    <p>Reports feature coming soon...</p>
   </section>
+
+  <footer>Produced by: DR Abdirizak Idiris Yahye</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+// Welcome -> Login
+function showLogin(){document.getElementById('welcomeScreen').style.display='none';document.getElementById('loginScreen').style.display='flex';}
+
 // Users
 let users=[{role:'admin',name:'Abdirizak',email:'Abdirizak@gmail.com',password:'1234'},
            {role:'teacher',name:'Teacher 1',email:'teacher@gmail.com',password:'1234'},
@@ -159,6 +193,9 @@ let students=[{name:'Abdirizak',email:'abdirizak@gmail.com',paid:500,month:'Sept
 
 // Payments
 let payments=[...students.map(s=>({student:s.name,amount:s.paid,month:s.month}))];
+
+// Attendance
+let attendance=[];
 
 // Login
 function login(){
@@ -175,320 +212,446 @@ function login(){
   }else{document.getElementById('loginError').innerText='Invalid email or password';}
 }
 
-// Show sections
-function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-
-// Notifications
-const notifications=["Abdirizak paid tuition","Student B absent today","New teacher added"];
-function showNotifications(){const container=document.getElementById('notifications');container.innerHTML="";notifications.forEach(n=>{const div=document.createElement('div');div.className='notification-item';div.innerText=n;container.appendChild(div);});}
-showNotifications();
-
-// Add buttons
-function showAddButtons(){if(currentUser.role==='admin'){document.getElementById('addStudentBtn').style.display='inline-block';document.getElementById('addPaymentBtn').style.display='inline-block';document.getElementById('addUserBtn').style.display='inline-block';}}
-
-// Student CRUD
-function updateStudentTable(){
-  const table=document.getElementById('studentsTable'); table.innerHTML='<tr><th>Name</th><th>Email</th><th>Paid</th><th>Month</th><th>Actions</th></tr>';
-  students.forEach((s,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${s.name}</td><td>${s.email}</td><td contenteditable="${currentUser.role==='admin'}">${s.paid}</td><td contenteditable="${currentUser.role==='admin'}">${s.month}</td><td><button ${currentUser.role!=='admin'?'disabled':''} onclick="saveStudent(${i})">Save</button><button ${currentUser.role!=='admin'?'disabled':''} onclick="deleteStudent(${i})">Delete</button></td>`;table.appendChild(tr);});
-  document.getElementById('totalStudents').innerText=students.length;updatePaymentSelect();updatePaymentTable();updateChart();
+// Logout
+function logout(){
+  if(confirm("Ma ku qanacsan tahay in aad logout garayso?")){
+    alert("Fadlan ka tag comment si aan u horumarino system-ka:");
+    const comment=prompt("Comment:","");
+    alert("Mahadsanid feedback-kaaga!");
+    currentUser=null;
+    document.querySelector('.container').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
+  }
 }
+
+// Show Add Buttons
+function showAddButtons(){
+  if(currentUser.role==='admin'){document.getElementById('addStudentBtn').style.display='inline-block';document.getElementById('attendanceBtn').style.display='inline-block';}
+}
+
+// Show / Hide Student Form
 function showAddStudentForm(){document.getElementById('addStudentForm').style.display='block';}
 function hideAddStudentForm(){document.getElementById('addStudentForm').style.display='none';}
-function addStudent(){const name=document.getElementById('newName').value.trim();const email=document.getElementById('newEmail').value.trim();const paid=Number(document.getElementById('newPaid').value);const month=document.getElementById('newMonth').value.trim();if(name&&email&&paid&&month){students.push({name,email,paid,month});hideAddStudentForm();updateStudentTable();}else{alert('Please fill all fields');}}
-function saveStudent(index){const table=document.getElementById('studentsTable');const row=table.rows[index+1];students[index].paid=Number(row.cells[2].innerText);students[index].month=row.cells[3].innerText;updatePaymentTable();updateChart();alert('Student updated!');}
-function deleteStudent(index){if(confirm('Delete student?')){students.splice(index,1);updateStudentTable();}}
 
-// Payments
-function updatePaymentSelect(){const select=document.getElementById('paymentStudent');select.innerHTML='';students.forEach(s=>{const opt=document.createElement('option');opt.value=s.name;opt.innerText=s.name;select.appendChild(opt);});}
-function showAddPaymentForm(){document.getElementById('addPaymentForm').style.display='block';}
-function hideAddPaymentForm(){document.getElementById('addPaymentForm').style.display='none';}
-function addPayment(){const student=document.getElementById('paymentStudent').value;const amount=Number(document.getElementById('paymentAmount').value);const month=document.getElementById('paymentMonth').value;if(student&&amount&&month){payments.push({student,amount,month});hideAddPaymentForm();updatePaymentTable();updateChart();}else alert('Fill all fields');}
-function updatePaymentTable(){const table=document.getElementById('paymentsTable');table.innerHTML='<tr><th>Student</th><th>Amount</th><th>Month</th></tr>';payments.forEach(p=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${p.student}</td><td>${p.amount}</td><td>${p.month}</td>`;table.appendChild(tr);});document.getElementById('totalPayments').innerText='$'+payments.reduce((a,b)=>a+b.amount,0);}
-
-// Users
-function showAddUserForm(){document.getElementById('addUserForm').style.display='block';}
-function hideAddUserForm(){document.getElementById('addUserForm').style.display='none';}
-function addUser(){const name=document.getElementById('userName').value.trim();const email=document.getElementById('userEmail').value.trim();const password=document.getElementById('userPassword').value.trim();const role=document.getElementById('userRole').value;if(name&&email&&password&&role){users.push({name,email,password,role});hideAddUserForm();updateUsersTable();}else alert('Fill all fields');}
-function updateUsersTable(){const table=document.getElementById('usersTable');table.innerHTML='<tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr>';users.forEach((u,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${u.name}</td><td>${u.email}</td><td>${u.role}</td><td><button ${currentUser.role!=='admin'?'disabled':''} onclick="deleteUser(${i})">Delete</button></td>`;table.appendChild(tr);});document.getElementById('totalTeachers').innerText=users.filter(u=>u.role==='teacher').length;}
-function deleteUser(index){if(confirm('Delete user?')){users.splice(index,1);updateUsersTable();}}
-
-// Chart
-const ctx=document.getElementById('paymentChart').getContext('2d');let chart=null;
-function updateChart(){const data=payments.reduce((acc,p)=>{acc[p.student]=(acc[p.student]||0)+p.amount;return acc;},{});
-const labels=Object.keys(data);const values=Object.values(data);
-if(chart) chart.destroy();
-chart=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Payments ($)',data:values,backgroundColor:'rgba(255,77,77,0.7)',borderColor:'rgba(255,77,77,1)',borderWidth:1}]},options:{responsive:true,scales:{y:{beginAtZero:true}}}});
+// Add Student
+function addStudent(){
+  const name=document.getElementById('newName').value;
+  const email=document.getElementById('newEmail').value;
+  const paid=Number(document.getElementById('newPayment').value);
+  const month=document.getElementById('newMonth').value;
+  if(name && email && paid && month){
+    const newStudent={name,email,paid,month};
+    students.push(newStudent);
+    payments.push({student:name,amount:paid,month});
+    updateAllTables();
+    hideAddStudentForm();
+  }
 }
 
-// Update All
-function updateAllTables(){updateStudentTable();updatePaymentTable();updateUsersTable();updateChart();}
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</body>
-</html>
+// Add Attendance
+function addAttendance(){
+  const today=new Date().toLocaleDateString();
+  students.forEach(s=>{
+    let status=prompt(`Status for ${s.name} (Present/Absent)`,'Present');
+    attendance.push({student:s.name,date:today,status:status});
+  });
+  updateAttendanceTable();
+}
+
+// Update Tables
+function updateAllTables(){
+  // Students Table
+  const tbody=document.querySelector('#studentsTable tbody'); tbody.innerHTML='';
+  students.forEach((s,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${s.name}</td><td>${s.email}</td><td>${s.paid} ETB</td><td>${s.month}</td>
+    <td><button onclick="editStudent(${i})">Edit</button><button onclick="deleteStudent(${i})">Delete</button></td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Payments Table
+  const tbodyP=document.querySelector('#paymentsTable tbody'); tbodyP.innerHTML='';
+  payments.forEach((p,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${p.student}</td><td>${p.amount} ETB</td><td>${p.month}</td>
+    <td><button onclick="editPayment(${i})">Edit</button><button onclick="deletePayment(${i})">Delete</button></td>`;
+    tbodyP.appendChild(tr);
+  });
+
+  // Users Table
+  const tbodyU=document.querySelector('#usersTable tbody'); tbodyU.innerHTML='';
+  users.forEach((u,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${u.name}</td><td>${u.email}</td><td>${u.role}</td>
+    <td><button onclick="editUser(${i})">Edit</button><button onclick="deleteUser(${i})">Delete</button></td>`;
+    tbodyU.appendChild(tr);
+  });
+
+  // Dashboard Cards
+  document.getElementById('totalStudents').innerText=students.length;
+  document.getElementById('totalTeachers').innerText=users.filter(u=>u.role==='teacher').length;
+  document.getElementById('totalPayments').innerText=payments.reduce((acc,p)=>acc+p.amount,0)+' ETB';
+
+  updateChart();
+  updateAttendanceTable();
+}
+
+// Attendance Table
+function updateAttendanceTable(){
+  const tbody=document.querySelector('#attendanceTable tbody'); tbody.innerHTML='';
+  attendance.forEach((a,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${a.student}</td><td>${a.date}</td><td class="${a.status.toLowerCase()}">${a.status}</td>
+    <td><button onclick="editAttendance(${i})">Edit</button><button onclick="deleteAttendance(${i})">Delete</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Show Section
+function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+// Chart
+let chart=null;
+function updateChart(){
+  const ctx=document.getElementById('paymentChart').getContext('2d');
+  const months=[...new Set(payments.map(p=>p.month))];
+  const amounts=months.map(m=>payments.filter(p=>p.month===m).reduce((acc,p)=>acc+p.amount,0));
+  if(chart) chart.destroy();
+  chart=new Chart(ctx,{type:'bar',data:{labels:months,datasets:[{label:'Payments (ETB)',data:amounts,backgroundColor:'rgba(77,166,255,0.7)'}]},options:{responsive:true,plugins:{legend:{display:false}}}});
+}
+
+// Edit/Delete placeholders
+function editStudent(i){alert('Edit student: '+students[i].name);}
+function deleteStudent(i){students.splice(i,1);updateAllTables();}
+function editPayment(i){alert('Edit payment for: '+payments[i].student);}
+function deletePayment(i){payments.splice(i,1);updateAll
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome - Topology</title>
+<title>Topology Computer Training Center</title>
 <style>
-    /* Body + Gradient Background */
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #ff4e50, #f9d423);
-        color: #fff;
-        text-align: center;
-        overflow: hidden;
-        position: relative;
-    }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f0f4f8;color:#333;overflow-x:hidden;}
+::-webkit-scrollbar{width:10px;}::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px;}::-webkit-scrollbar-thumb{background:linear-gradient(45deg,#4da6ff,#80c1ff);border-radius:10px;}::-webkit-scrollbar-thumb:hover{background:linear-gradient(45deg,#1a8cff,#3399ff);}
 
-    /* Canvas for Particles */
-    #particle-canvas {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-    }
+/* Animations */
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes slideDown{from{opacity:0; transform:translateY(-30px);}to{opacity:1; transform:translateY(0);}}
+@keyframes slideUp{from{opacity:0; transform:translateY(30px);}to{opacity:1; transform:translateY(0);}}
+@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
 
-    /* Floating Shapes */
-    .shape {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.3;
-        animation: float 10s infinite linear;
-        pointer-events: none;
-    }
+/* Welcome Screen */
+#welcomeScreen{
+  display:flex;justify-content:space-between;align-items:center;height:100vh;padding:50px;background:linear-gradient(135deg,#4da6ff,#80c1ff);color:#fff;animation:fadeIn 1s ease;
+}
+#welcomeScreen .courses{flex:1;display:flex;flex-direction:column;gap:15px;}
+#welcomeScreen .courses .course-card{padding:12px 20px;border-radius:12px;background:rgba(255,255,255,0.2);animation:float 3s ease-in-out infinite alternate;cursor:pointer;transition:0.3s;}
+#welcomeScreen .courses .course-card:hover{background:rgba(255,255,255,0.35);transform:scale(1.05);}
+#welcomeScreen .topology-info{flex:1;text-align:right;}
+#welcomeScreen .topology-info h1{font-size:2rem;margin-bottom:10px;}
+#welcomeScreen .topology-info p{font-size:1.2rem;margin-bottom:10px;}
+#welcomeScreen .topology-info span{font-weight:bold;}
+#welcomeScreen button{padding:12px 25px;font-size:1rem;border:none;border-radius:10px;background:#fff;color:#4da6ff;cursor:pointer;font-weight:bold;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:0.3s;}
+#welcomeScreen button:hover{background:#fff;color:#1a8cff; transform:scale(1.05);}
 
-    /* Welcome Container */
-    .welcome-container {
-        z-index: 10;
-        max-width: 800px;
-        padding: 40px;
-        background: rgba(0,0,0,0.5);
-        border-radius: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        margin-bottom: 50px;
-        opacity: 0;
-        transform: translateY(50px);
-        animation: fadeSlideIn 1s forwards;
-        animation-delay: 0.5s;
-    }
+/* Login Screen */
+#loginScreen{display:none;flex-direction:column;justify-content:center;align-items:center;height:100vh;animation:fadeIn 0.5s;}
+#loginScreen input{width:250px;padding:10px;margin:10px 0;border-radius:8px;border:none;}
+#loginScreen button{padding:10px 20px;border:none;border-radius:8px;background:#4da6ff;color:#fff;cursor:pointer;font-weight:bold;}
+#loginScreen button:hover{background:#1a8cff;}
 
-    .welcome-container h1 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeSlideIn 1s forwards;
-        animation-delay: 0.8s;
-    }
+/* Main Container */
+.container{max-width:1200px;margin:20px auto;padding:20px;}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:20px;}
+nav .logo{font-size:1.5rem;font-weight:bold;color:#4da6ff;cursor:pointer;}
+nav ul{display:flex;list-style:none;flex-wrap:wrap;}
+nav ul li{margin-left:20px;cursor:pointer;font-weight:bold;color:#4da6ff;}
+nav ul li:hover{text-decoration:underline;}
+section{display:none;}
+section.active{display:block;animation:fadeIn 0.5s ease;}
+.cards{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:20px;}
+.card{flex:1 1 200px;padding:20px;border-radius:15px;background:linear-gradient(135deg,#4da6ff,#80c1ff);color:#fff;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+.card h3{margin-bottom:10px;}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+table th,table td{padding:10px;border:1px solid #ddd;text-align:left;}
+table th{background:#4da6ff;color:#fff;}
+button{padding:5px 10px;border:none;border-radius:6px;background:#4da6ff;color:#fff;cursor:pointer;margin-right:5px;}
+button:hover{background:#1a8cff;}
+button:disabled{background:#ccc;cursor:not-allowed;}
+input.addInput{width:90%;padding:5px;margin-bottom:5px;border-radius:6px;border:1px solid #ccc;}
+.present{background-color:#c6f6d5;}
+.absent{background-color:#fed7d7;}
+@media(max-width:768px){.cards{flex-direction:column;} nav ul{flex-direction:column;gap:10px;margin-top:10px;}}
 
-    .welcome-container p {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeSlideIn 1s forwards;
-        animation-delay: 1.1s;
-    }
-
-    .btn-next {
-        background-color: #fff;
-        color: #ff4e50;
-        border: none;
-        padding: 15px 35px;
-        font-size: 1rem;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: 0.3s;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeSlideIn 1s forwards;
-        animation-delay: 1.4s;
-    }
-
-    .btn-next:hover {
-        background-color: #ff4e50;
-        color: #fff;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        transform: scale(1.05);
-    }
-
-    /* Cards Container */
-    .cards {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        max-width: 1000px;
-        padding: 0 20px;
-        z-index: 10;
-        position: relative;
-    }
-
-    .card {
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(5px);
-        border-radius: 20px;
-        padding: 25px;
-        width: 220px;
-        min-height: 180px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s, box-shadow 0.3s;
-        opacity: 0;
-        transform: translateY(50px);
-        animation: fadeSlideIn 1s forwards;
-    }
-
-    .card:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 15px 25px rgba(0,0,0,0.5);
-    }
-
-    .card h3 {
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-        color: #fff;
-    }
-
-    .card p {
-        font-size: 1rem;
-        color: #fff;
-    }
-
-    /* Animations */
-    @keyframes fadeSlideIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0) translateX(0) rotate(0deg);}
-        50% { transform: translateY(-50px) translateX(30px) rotate(180deg);}
-        100% { transform: translateY(0) translateX(0) rotate(360deg);}
-    }
-
-    /* Animation delays for cards */
-    .card:nth-child(1) { animation-delay: 1.6s; }
-    .card:nth-child(2) { animation-delay: 1.9s; }
-    .card:nth-child(3) { animation-delay: 2.2s; }
-    .card:nth-child(4) { animation-delay: 2.5s; }
+/* Footer */
+footer{margin-top:20px;text-align:center;color:#666;font-size:0.9rem;}
 </style>
 </head>
 <body>
 
-    <!-- Canvas for JS particles -->
-    <canvas id="particle-canvas"></canvas>
+<!-- Welcome Screen -->
+<div id="welcomeScreen">
+  <div class="courses">
+    <h2>Courses We Offer</h2>
+    <div class="course-card">Basic Computer</div>
+    <div class="course-card">Intermediate</div>
+    <div class="course-card">Advanced Web Design & Database Tools</div>
+    <div class="course-card">Document Tools</div>
+    <div class="course-card">Presentation Tools</div>
+    <div class="course-card">Analysing Tools</div>
+  </div>
+  <div class="topology-info">
+    <h1>Topology Computer Training Center</h1>
+    <p>Excellence in learning, innovation & skill development.</p>
+    <p><span>Produced by:</span> DR Abdirizak Idiris Yahye</p>
+    <button onclick="showLogin()">Next</button>
+  </div>
+</div>
 
-    <!-- Floating Shapes -->
-    <div class="shape" style="width:50px; height:50px; background:rgba(255,255,255,0.2); top:10%; left:15%; animation-duration:12s;"></div>
-    <div class="shape" style="width:70px; height:70px; background:rgba(255,255,255,0.15); top:30%; left:80%; animation-duration:18s;"></div>
-    <div class="shape" style="width:40px; height:40px; background:rgba(255,255,255,0.25); top:70%; left:40%; animation-duration:14s;"></div>
-    <div class="shape" style="width:60px; height:60px; background:rgba(255,255,255,0.2); top:50%; left:60%; animation-duration:20s;"></div>
+<!-- Login Screen -->
+<div id="loginScreen">
+  <h1>Login</h1>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p id="loginError" style="color:red;"></p>
+</div>
 
-    <!-- Welcome Section -->
-    <div class="welcome-container">
-        <h1>Welcome to Topology Computer Training Center</h1>
-        <p>Halkan waxaad ka bilaabi kartaa safarkaaga xirfadeed ee teknoolojiyadda.</p>
-        <button class="btn-next" onclick="goNext()">Get Started</button>
-    </div>
+<!-- Main Container -->
+<div class="container" style="display:none;">
+  <nav>
+    <div class="logo" onclick="showSection('dashboard')">Topology</div>
+    <ul>
+      <li onclick="showSection('dashboard')">Dashboard</li>
+      <li onclick="showSection('profiles')">Profiles</li>
+      <li onclick="showSection('attendance')">Attendance</li>
+      <li onclick="showSection('payments')">Payments</li>
+      <li onclick="showSection('reports')">Reports</li>
+      <li onclick="showSection('users')">Users</li>
+      <li onclick="logout()">Logout</li>
+    </ul>
+  </nav>
 
-    <!-- Features Cards -->
+  <div id="notifications"></div>
+
+  <!-- Dashboard -->
+  <section id="dashboard" class="active">
+    <h2>Dashboard</h2>
     <div class="cards">
-        <div class="card">
-            <h3>Aqoonta Sare</h3>
-            <p>Barnaamijyo dhameystiran oo ku saabsan kombiyuutarka, coding, networking, iyo design.</p>
-        </div>
-        <div class="card">
-            <h3>Macalimiin Khibrad Leh</h3>
-            <p>Macalimiin si hagar la’aan ah u hageya ardayda, una diyaariya xirfado la taaban karo.</p>
-        </div>
-        <div class="card">
-            <h3>Deegaan Casri Ah</h3>
-            <p>Fasalo iyo qalab casri ah oo ardayda u sahlaya inay si fudud wax u bartaan.</p>
-        </div>
-        <div class="card">
-            <h3>Horumarinta Xirfadaha</h3>
-            <p>Diiradda saarida hal-abuurka, kartida, iyo awoodda ardayda si ay u gaaraan himilooyinkooda.</p>
-        </div>
+      <div class="card"><h3>Total Students</h3><p id="totalStudents">0</p></div>
+      <div class="card"><h3>Total Teachers</h3><p id="totalTeachers">0</p></div>
+      <div class="card"><h3>Payments This Month</h3><p id="totalPayments">0 ETB</p></div>
     </div>
+    <canvas id="paymentChart" height="150"></canvas>
+  </section>
 
+  <!-- Profiles -->
+  <section id="profiles">
+    <h2>Student Profiles</h2>
+    <div style="margin-bottom:10px;"><button id="addStudentBtn" onclick="showAddStudentForm()" style="display:none;">Add Student</button></div>
+    <div id="addStudentForm" style="display:none;margin-bottom:10px;border:1px solid #ccc;padding:10px;border-radius:8px;">
+      <input type="text" id="newName" class="addInput" placeholder="Name">
+      <input type="email" id="newEmail" class="addInput" placeholder="Email">
+      <input type="number" id="newPayment" class="addInput" placeholder="Paid Amount ETB">
+      <input type="text" id="newMonth" class="addInput" placeholder="Month">
+      <button onclick="addStudent()">Add</button>
+      <button onclick="hideAddStudentForm()">Cancel</button>
+    </div>
+    <table id="studentsTable">
+      <thead><tr><th>Name</th><th>Email</th><th>Paid (ETB)</th><th>Month</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Attendance -->
+  <section id="attendance">
+    <h2>Attendance</h2>
+    <div style="margin-bottom:10px;"><button onclick="addAttendance()" id="attendanceBtn" style="display:none;">Add Attendance</button></div>
+    <table id="attendanceTable">
+      <thead><tr><th>Student</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Payments -->
+  <section id="payments">
+    <h2>Payments</h2>
+    <table id="paymentsTable">
+      <thead><tr><th>Student</th><th>Amount (ETB)</th><th>Month</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Users -->
+  <section id="users">
+    <h2>Users</h2>
+    <table id="usersTable">
+      <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Reports -->
+  <section id="reports">
+    <h2>Reports</h2>
+    <p>Reports feature coming soon...</p>
+  </section>
+
+  <footer>Produced by: DR Abdirizak Idiris Yahye | Contact: 0940653484</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    function goNext() {
-        // Halkan ku bedel login.html haddii uu magac kale leeyahay
-        window.location.href = "login.html";
-    }
+// Welcome -> Login
+function showLogin(){document.getElementById('welcomeScreen').style.display='none';document.getElementById('loginScreen').style.display='flex';}
 
-    // JS Particles Animation
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+// Users
+let users=[{role:'admin',name:'Abdirizak',email:'Abdirizak@gmail.com',password:'1234'},
+           {role:'teacher',name:'Teacher 1',email:'teacher@gmail.com',password:'1234'},
+           {role:'student',name:'Student 1',email:'student@gmail.com',password:'1234'}];
+let currentUser=null;
 
-    const particles = [];
-    const particleCount = 100;
+// Students
+let students=[{name:'Abdirizak',email:'abdirizak@gmail.com',paid:500,month:'September'},
+              {name:'Student B',email:'studentb@gmail.com',paid:400,month:'September'},
+              {name:'Student C',email:'studentc@gmail.com',paid:450,month:'September'}];
 
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.radius = Math.random() * 3 + 1;
-            this.speedX = (Math.random() - 0.5) * 0.5;
-            this.speedY = (Math.random() - 0.5) * 0.5;
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
+// Payments
+let payments=[...students.map(s=>({student:s.name,amount:s.paid,month:s.month}))];
 
-            if (this.x < 0 || this.x > width) this.speedX *= -1;
-            if (this.y < 0 || this.y > height) this.speedY *= -1;
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-            ctx.fillStyle = 'rgba(255,255,255,0.3)';
-            ctx.fill();
-        }
-    }
+// Attendance
+let attendance=[];
 
-    function initParticles() {
-        for(let i=0; i<particleCount; i++){
-            particles.push(new Particle());
-        }
-    }
+// Login
+function login(){
+  const email=document.getElementById('email').value.trim();
+  const password=document.getElementById('password').value.trim();
+  const found=users.find(u=>u.email.toLowerCase()===email.toLowerCase()&&u.password===password);
+  if(found){
+    currentUser=found;
+    document.getElementById('loginScreen').style.display='none';
+    document.querySelector('.container').style.display='block';
+    showAddButtons();
+    updateAllTables();
+    showSection('dashboard');
+  }else{document.getElementById('loginError').innerText='Invalid email or password';}
+}
 
-    function animateParticles() {
-        ctx.clearRect(0,0,width,height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        requestAnimationFrame(animateParticles);
-    }
+// Logout
+function logout(){
+  if(confirm("Ma ku qanacsan tahay in aad logout garayso?")){
+    alert("Fadlan ka tag comment si aan u horumarino system-ka:");
+    const comment=prompt("Comment:","");
+    alert("Mahadsanid feedback-kaaga!");
+    currentUser=null;
+    document.querySelector('.container').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
+  }
+}
 
-    initParticles();
-    animateParticles();
+// Show Add Buttons
+function showAddButtons(){
+  if(currentUser.role==='admin'){document.getElementById('addStudentBtn').style.display='inline-block';document.getElementById('attendanceBtn').style.display='inline-block';}
+}
 
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
+// Show / Hide Student Form
+function showAddStudentForm(){document.getElementById('addStudentForm').style.display='block';}
+function hideAddStudentForm(){document.getElementById('addStudentForm').style.display='none';}
+
+// Add Student
+function addStudent(){
+  const name=document.getElementById('newName').value;
+  const email=document.getElementById('newEmail').value;
+  const paid=Number(document.getElementById('newPayment').value);
+  const month=document.getElementById('newMonth').value;
+  if(name && email && paid && month){
+    const newStudent={name,email,paid,month};
+    students.push(newStudent);
+    payments.push({student:name,amount:paid,month});
+    updateAllTables();
+    hideAddStudentForm();
+  }
+}
+
+// Add Attendance
+function addAttendance(){
+  const today=new Date().toLocaleDateString();
+  students.forEach(s=>{
+    let status=prompt(`Status for ${s.name} (Present/Absent)`,'Present');
+    attendance.push({student:s.name,date:today,status:status});
+  });
+  updateAttendanceTable();
+}
+
+// Update Tables
+function updateAllTables(){
+  const tbody=document.querySelector('#studentsTable tbody'); tbody.innerHTML='';
+  students.forEach((s,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${s.name}</td><td>${s.email}</td><td>${s.paid} ETB</td><td>${s.month}</td>
+    <td><button onclick="editStudent(${i})">Edit</button><button onclick="deleteStudent(${i})">Delete</button></td>`;
+    tbody.appendChild(tr);
+  });
+
+  const tbodyP=document.querySelector('#paymentsTable tbody'); tbodyP.innerHTML='';
+  payments.forEach((p,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${p.student}</td><td>${p.amount} ETB</td><td>${p.month}</td>
+    <td><button onclick="editPayment(${i})">Edit</button><button onclick="deletePayment(${i})">Delete</button></td>`;
+    tbodyP.appendChild(tr);
+  });
+
+  const tbodyU=document.querySelector('#usersTable tbody'); tbodyU.innerHTML='';
+  users.forEach((u,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${u.name}</td><td>${u.email}</td><td>${u.role}</td>
+    <td><button onclick="editUser(${i})">Edit</button><button onclick="deleteUser(${i})">Delete</button></td>`;
+    tbodyU.appendChild(tr);
+  });
+
+  document.getElementById('totalStudents').innerText=students.length;
+  document.getElementById('totalTeachers').innerText=users.filter(u=>u.role==='teacher').length;
+  document.getElementById('totalPayments').innerText=payments.reduce((acc,p)=>acc+p.amount,0)+' ETB';
+
+  updateChart();
+  updateAttendanceTable();
+}
+
+// Attendance Table
+function updateAttendanceTable(){
+  const tbody=document.querySelector('#attendanceTable tbody'); tbody.innerHTML='';
+  attendance.forEach((a,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${a.student}</td><td>${a.date}</td><td class="${a.status.toLowerCase()}">${a.status}</td>
+    <td><button onclick="editAttendance(${i})">Edit</button><button onclick="deleteAttendance(${i})">Delete</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Show Section
+function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+// Chart
+let chart=null;
+function updateChart(){
+  const ctx=document.getElementById('paymentChart').getContext('2d');
+  const months=[...new Set(payments.map(p=>p.month))];
+  const amounts=months.map(m=>payments.filter(p=>p.month===m).reduce((acc,p)=>acc+p.amount,0));
+  if(chart) chart.destroy();
+  chart=new Chart(ctx,{type:'bar',data:{labels:months,datasets:[{label:'Payments (ETB)',data:amounts,backgroundColor:'rgba(77,166,255,0.7)'}]},options:{responsive:true,plugins:{legend:{display:false}}}});
+}
+
+// Edit/Delete placeholders
+function editStudent(i){alert('Edit student: '+students[i].name);}
+function deleteStudent(i){students.splice(i,1);updateAllTables();}
+function editPayment(i){alert('Edit payment for: '+payments[i].student);}
+function deletePayment(i){payments.splice(i,1);updateAllTables();}
+function editUser(i){alert('Edit user: '+users[i].name);}
+function deleteUser(i){users.splice(i,1);updateAllTables();}
+function editAttendance(i){alert('Edit attendance: '+attendance[i].student);}
+function deleteAttendance(i){attendance.splice(i,1);updateAttendanceTable();}
 </script>
-
 </body>
 </html>
-
