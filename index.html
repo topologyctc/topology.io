@@ -226,3 +226,269 @@ function updateAllTables(){updateStudentTable();updatePaymentTable();updateUsers
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome - Topology</title>
+<style>
+    /* Body + Gradient Background */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ff4e50, #f9d423);
+        color: #fff;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Canvas for Particles */
+    #particle-canvas {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+
+    /* Floating Shapes */
+    .shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: float 10s infinite linear;
+        pointer-events: none;
+    }
+
+    /* Welcome Container */
+    .welcome-container {
+        z-index: 10;
+        max-width: 800px;
+        padding: 40px;
+        background: rgba(0,0,0,0.5);
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 50px;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeSlideIn 1s forwards;
+        animation-delay: 0.5s;
+    }
+
+    .welcome-container h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeSlideIn 1s forwards;
+        animation-delay: 0.8s;
+    }
+
+    .welcome-container p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeSlideIn 1s forwards;
+        animation-delay: 1.1s;
+    }
+
+    .btn-next {
+        background-color: #fff;
+        color: #ff4e50;
+        border: none;
+        padding: 15px 35px;
+        font-size: 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeSlideIn 1s forwards;
+        animation-delay: 1.4s;
+    }
+
+    .btn-next:hover {
+        background-color: #ff4e50;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transform: scale(1.05);
+    }
+
+    /* Cards Container */
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1000px;
+        padding: 0 20px;
+        z-index: 10;
+        position: relative;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        padding: 25px;
+        width: 220px;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeSlideIn 1s forwards;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+        color: #fff;
+    }
+
+    .card p {
+        font-size: 1rem;
+        color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeSlideIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0) translateX(0) rotate(0deg);}
+        50% { transform: translateY(-50px) translateX(30px) rotate(180deg);}
+        100% { transform: translateY(0) translateX(0) rotate(360deg);}
+    }
+
+    /* Animation delays for cards */
+    .card:nth-child(1) { animation-delay: 1.6s; }
+    .card:nth-child(2) { animation-delay: 1.9s; }
+    .card:nth-child(3) { animation-delay: 2.2s; }
+    .card:nth-child(4) { animation-delay: 2.5s; }
+</style>
+</head>
+<body>
+
+    <!-- Canvas for JS particles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Floating Shapes -->
+    <div class="shape" style="width:50px; height:50px; background:rgba(255,255,255,0.2); top:10%; left:15%; animation-duration:12s;"></div>
+    <div class="shape" style="width:70px; height:70px; background:rgba(255,255,255,0.15); top:30%; left:80%; animation-duration:18s;"></div>
+    <div class="shape" style="width:40px; height:40px; background:rgba(255,255,255,0.25); top:70%; left:40%; animation-duration:14s;"></div>
+    <div class="shape" style="width:60px; height:60px; background:rgba(255,255,255,0.2); top:50%; left:60%; animation-duration:20s;"></div>
+
+    <!-- Welcome Section -->
+    <div class="welcome-container">
+        <h1>Welcome to Topology Computer Training Center</h1>
+        <p>Halkan waxaad ka bilaabi kartaa safarkaaga xirfadeed ee teknoolojiyadda.</p>
+        <button class="btn-next" onclick="goNext()">Get Started</button>
+    </div>
+
+    <!-- Features Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Aqoonta Sare</h3>
+            <p>Barnaamijyo dhameystiran oo ku saabsan kombiyuutarka, coding, networking, iyo design.</p>
+        </div>
+        <div class="card">
+            <h3>Macalimiin Khibrad Leh</h3>
+            <p>Macalimiin si hagar la’aan ah u hageya ardayda, una diyaariya xirfado la taaban karo.</p>
+        </div>
+        <div class="card">
+            <h3>Deegaan Casri Ah</h3>
+            <p>Fasalo iyo qalab casri ah oo ardayda u sahlaya inay si fudud wax u bartaan.</p>
+        </div>
+        <div class="card">
+            <h3>Horumarinta Xirfadaha</h3>
+            <p>Diiradda saarida hal-abuurka, kartida, iyo awoodda ardayda si ay u gaaraan himilooyinkooda.</p>
+        </div>
+    </div>
+
+<script>
+    function goNext() {
+        // Halkan ku bedel login.html haddii uu magac kale leeyahay
+        window.location.href = "login.html";
+    }
+
+    // JS Particles Animation
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.radius = Math.random() * 3 + 1;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0 || this.x > width) this.speedX *= -1;
+            if (this.y < 0 || this.y > height) this.speedY *= -1;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+            ctx.fillStyle = 'rgba(255,255,255,0.3)';
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        for(let i=0; i<particleCount; i++){
+            particles.push(new Particle());
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0,0,width,height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+</script>
+
+</body>
+</html>
+
